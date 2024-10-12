@@ -4,11 +4,15 @@ import admin from 'firebase-admin';
 import { readFileSync } from 'fs';
 import userRoutes from './routes/users.js';
 import parkingSpotRoutes from './routes/parkingSpots.js';
+import { config } from 'dotenv';
+config(); // Load environment variables from .env file
 
-// Initialize the app with the service account
-const serviceAccount = JSON.parse(readFileSync('./serviceAccountKey.json', 'utf8'));
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert({
+    privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n'),
+    clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+  }),
 });
 
 const app = express();
