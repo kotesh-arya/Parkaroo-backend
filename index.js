@@ -21,11 +21,11 @@ const app = express();
 app.use(bodyParser.json());
 
 // Set up routes
-app.use('/users', userRoutes);
-app.use('/parkingSpots', parkingSpotRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/parkingSpots', parkingSpotRoutes);
 
 // Example route
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Hello World');
 });
 
